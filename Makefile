@@ -5,7 +5,7 @@ BACKEND_DIR = backend
 FRONTEND_DIR = frontend
 PYTHON = python3.12
 UV = uv
-NPM = npm
+BUN = bun
 
 # Colors for output
 BLUE = \033[0;34m
@@ -27,7 +27,7 @@ install-backend: ## Install backend dependencies (including dev dependencies)
 
 install-frontend: ## Install frontend dependencies
 	@echo "$(BLUE)Installing frontend dependencies...$(NC)"
-	cd $(FRONTEND_DIR) && $(NPM) install
+	cd $(FRONTEND_DIR) && $(BUN) install
 
 # Development servers
 dev: dev-backend dev-frontend ## Start both backend and frontend (in parallel)
@@ -38,7 +38,7 @@ dev-backend: ## Start backend development server
 
 dev-frontend: ## Start frontend development server
 	@echo "$(BLUE)Starting frontend server on http://localhost:5173$(NC)"
-	cd $(FRONTEND_DIR) && $(NPM) run dev
+	cd $(FRONTEND_DIR) && $(BUN) run dev
 
 # Backend commands
 backend: dev-backend ## Alias for dev-backend
@@ -57,10 +57,10 @@ frontend: dev-frontend ## Alias for dev-frontend
 
 frontend-build: ## Build frontend for production
 	@echo "$(BLUE)Building frontend...$(NC)"
-	cd $(FRONTEND_DIR) && $(NPM) run build
+	cd $(FRONTEND_DIR) && $(BUN) run build
 
 frontend-preview: ## Preview production build
-	cd $(FRONTEND_DIR) && $(NPM) run preview
+	cd $(FRONTEND_DIR) && $(BUN) run preview
 
 # Testing
 test: test-backend test-frontend ## Run all tests
@@ -75,7 +75,7 @@ test-backend-coverage: ## Run backend tests with coverage
 
 test-frontend: ## Run frontend tests
 	@echo "$(BLUE)Running frontend tests...$(NC)"
-	cd $(FRONTEND_DIR) && $(NPM) test
+	cd $(FRONTEND_DIR) && $(BUN) test
 
 # Code quality
 lint: lint-backend lint-frontend ## Run all linters
@@ -86,7 +86,7 @@ lint-backend: ## Lint backend code
 
 lint-frontend: ## Lint frontend code
 	@echo "$(BLUE)Linting frontend...$(NC)"
-	cd $(FRONTEND_DIR) && $(NPM) run lint
+	cd $(FRONTEND_DIR) && $(BUN) run lint
 
 format: format-backend format-frontend ## Format all code
 
@@ -96,7 +96,7 @@ format-backend: ## Format backend code
 
 format-frontend: ## Format frontend code
 	@echo "$(BLUE)Formatting frontend...$(NC)"
-	cd $(FRONTEND_DIR) && $(NPM) run lint -- --fix || true
+	cd $(FRONTEND_DIR) && $(BUN) run lint -- --fix || true
 
 # Database migrations
 db-migrate: ## Create a new database migration (use MESSAGE="description")
